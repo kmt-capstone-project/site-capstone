@@ -5,7 +5,12 @@ import { validateFields } from "../utils/validate";
 import bcrypt from "bcrypt";
 import { Projects } from "./projects";
 
+interface VolunteerInterface{
+
+}
+
 export class Volunteer {
+
   // Static method to make a volunteer object
   static async createPublicVolunteer(volunteer: {
     id: number;
@@ -34,6 +39,10 @@ export class Volunteer {
       userType: "volunteer",
     };
   }
+
+
+
+  //interface??? could be useful to define types
 
   /**
    * Register volunteer with their information in the database

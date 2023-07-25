@@ -39,3 +39,15 @@ projectRoutes.get("/tag/:tag_name", async function(req, res, next){
         res.status(404).json( { error: 'Projects with given tag not found' } )
       }
 })
+
+
+/**route that handles searching by a term */
+projectRoutes.get("/search/:searchTerm", async function(req, res, next){
+  const search = req.params.searchTerm
+  try{
+    const projects = await Projects.searchProjects(search)
+    res.status(201).json(projects)
+  }catch (error){
+    next(error)
+  }
+})
