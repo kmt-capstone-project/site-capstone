@@ -20,22 +20,29 @@ const scraperObject = {
         let dataObj = {};
         let newPage = await browser.newPage();
         await newPage.goto(link);
-        dataObj["projectTitle"] = await newPage.$eval(
-          "div.Profile-top-details > h1",
-          (el) => el.textContent
+
+        dataObj["projectTitle"] = await scrapeDataWithSelector(
+          newPage,
+          "div.Profile-top-details > h1"
         );
 
-        dataObj["problem"] = await newPage.$eval(
-            "#AboutProject-tabs-tabpane-proj-details > div.markdown-container >p ",
-            (el) => el.textContent
+        dataObj["problem"] = await scrapeDataWithSelector(
+          newPage,
+          "#AboutProject-tabs-tabpane-proj-details > div.markdown-container >p "
         );
-        
-        dataObj["technologies"] = await newPage.$eval(
-            ".AboutProject-technologies .Profile-pill",
-            (el) => el.textContent
-        )
+
+        let technologies = await newPage.$$eval(
+          "div.AboutProject-technologies > span",
+          (tags) => {
+            tags = tags.map((el) => el.textContent);
+            return tags;
+          }
+        );
+
+        dataObj["technologies"] = technologies;
 
         resolve(dataObj);
+
         await newPage.close();
       });
 
@@ -46,4 +53,13 @@ const scraperObject = {
     }
   },
 };
+
+async function scrapeDataWithSelector(newPage, selector) {
+  try {
+    return await newPage.$eval(selector, (el) => el.textContent);
+  } catch (error) {
+    return null;
+  }
+}
+
 module.exports = scraperObject;
