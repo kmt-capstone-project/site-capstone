@@ -21,6 +21,7 @@ app.use(morgan("dev"))
 
 app.use("/auth", authRoutes)
 
+
 app.use("/volunteer", requireAuthenticatedUser, volunteerRoutes)
 app.use("/organization", requireAuthenticatedUser, organizationRoutes)
 app.use("/project", projectRoutes)

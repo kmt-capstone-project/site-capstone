@@ -4,16 +4,24 @@ import express from "express";
 import { Projects } from "../models/projects";
 import { requireAuthenticatedUser } from "../middleware/security";
 
+
 export const projectRoutes = express.Router();
 
-projectRoutes.post("/register", async function (req, res, next) {
-  try {
-    const project = await Projects.registerProject(req.body);
-    return res.status(201).json(project);
-  } catch (error) {
-    next(error);
-  }
-});
+
+
+
+projectRoutes.post("/register", async function (req, res, next){
+    try{
+      const {id} = res.locals.user
+        const project = await Projects.registerProject({...req.body, orgId: id})
+        return res.status(201).json(project)
+    } catch (error){
+        next(error)
+    }
+})
+
+
+
 
 /**route that returns project information given the project id */
 projectRoutes.get(
