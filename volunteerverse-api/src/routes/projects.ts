@@ -19,8 +19,10 @@ projectRoutes.post("/register", async function (req, res, next){
 /**route that returns project information given the project id */
 projectRoutes.get("/:projectId", async function (req, res, next){
     const projectId = parseInt(req.params.projectId)
+    const {user_type, email} = res.locals.user
+    console.log("USERTYPE", user_type)
     try {
-        const project = await Projects.fetchProjectByProjectId(projectId)
+        const project = await Projects.fetchProjectByProjectId(projectId, user_type, email)
         res.status(201).json(project)
       } catch(error) {
         next(error)
@@ -32,6 +34,7 @@ projectRoutes.get("/:projectId", async function (req, res, next){
 /**route that gets all projects with given tag */
 projectRoutes.get("/tag/:tag_name", async function(req, res, next){
     const tag = req.params.tag_name
+    const {user_type, email} = res.locals.user
     const projects = await Projects.getProjectsWithTag(tag)
     if (projects) {
         res.status(201).json({projects: projects})

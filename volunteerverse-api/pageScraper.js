@@ -31,6 +31,18 @@ const scraperObject = {
           "#AboutProject-tabs-tabpane-proj-details > div.markdown-container >p "
         );
 
+        let descriptionText = await newPage.$$eval(
+          "#AboutProject-tabs-tabpane-proj-details > div > div.markdown-container",
+          (desc) => {
+            desc = desc.map((el) => el.textContent);
+            return desc;
+          }
+        );
+
+        dataObj["action"] = descriptionText
+
+        // dataObj["founder"] = await scrapeDataWithSelector(newPage, "div.AboutProject-staff.AboutProject-secondary-section > div > div > div ")
+
         let technologies = await newPage.$$eval(
           "div.AboutProject-technologies > span",
           (tags) => {
@@ -41,10 +53,18 @@ const scraperObject = {
 
         dataObj["technologies"] = technologies;
 
+        dataObj["website"] = await scrapeDataWithSelector(
+          newPage,
+          ".AboutProject-url-text > a"
+        );
+
         resolve(dataObj);
 
         await newPage.close();
       });
+
+      dataObj["image"] = await newPage.$eval("div.container.Profile-root > div > div > div > div.Profile-top-logo > img", (el) => el.src.getProperty("src"));
+  
 
     for (link in urls) {
       let currentPageData = await pagePromise(urls[link]);

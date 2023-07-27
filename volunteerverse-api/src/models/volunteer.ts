@@ -245,13 +245,43 @@ export class Volunteer {
 
 
 
-static async expressedInterest(projectId: number, email:string){
-  const query = `SELECT * FROM interested_volunteers WHERE email=$1 AND project_id=$2`
-  const result = await db.query(query, [email, projectId])
-  if (result){
-    return result.rows[0]
+
+/**
+ * Returns a boolean indicating whether a volunteer has expressed interest in a specific project
+ * @param projectId 
+ * @param email 
+ * @returns boolean
+ */
+static async expressedInterest(projectId:number, email:string){
+  const query = `SELECT * FROM interested_volunteers WHERE email=$1 AND project_id=$2`;
+  const result = await db.query(query, [email, projectId]);
+  if (result.rows[0]){
+    return true;
   }
-  return null;
+  return false;
 }
+
+/**
+ * Returns a boolean indicating whether a volunteer was approved for a specific project
+ * @param projectId 
+ * @param email 
+ * @returns boolean
+ * @throws BadRequestError
+ */
+
+static async checkStatusProject(projectId:number, email:string){
+  const query = `SELECT * FROM interested_volunteers WHERE email=$1 AND project_id=$2`;
+  const result = await db.query(query, [email, projectId]);
+  if (result.rows[0]){
+    return result.rows[0].approved;
+  }
+  throw new BadRequestError(`${email} has not expressed interest in project ${projectId}`);
+
+}
+
+
+
+
+
 
 }

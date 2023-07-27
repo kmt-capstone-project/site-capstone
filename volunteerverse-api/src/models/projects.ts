@@ -3,6 +3,7 @@ import db from "../db";
 import { validateFields } from "../utils/validate";
 import { BadRequestError, NotFoundError } from "../utils/errors";
 import { Organization } from "./organization";
+import { Volunteer } from "./volunteer";
 
 export class Projects {
   /**
@@ -74,8 +75,7 @@ export class Projects {
    * Returns project information given the project id
    * @param id
    */
-
-  static async fetchProjectByProjectId(projectId: number) {
+  static async fetchProjectByProjectId(projectId: number, userType: string, email?:string) {
     const query = `SELECT * FROM projects WHERE id=$1`;
     const result = await db.query(query, [projectId]);
     //destructure to extract important info about project
@@ -94,7 +94,8 @@ export class Projects {
       const tags = await this.getProjectTags(id);
       const { organization_name, founders, website } =
         await Organization.getOrgById(org_id);
-      return {
+
+      let projectCard = {
         id: id,
         orgName: organization_name,
         founders: founders,
@@ -107,6 +108,14 @@ export class Projects {
         approvedPeople: approved_people,
         tags: tags,
       };
+
+      if (userType == "volunteer") {
+        projectCard["expressedInterest"] = await Volunteer.expressedInterest(projectId, email)
+        return projectCard
+      }
+
+      if (userType == "organization") {
+      }
     }
     return new BadRequestError("Project not found");
   }
@@ -122,7 +131,7 @@ export class Projects {
       const projectIds = result.rows.map((row: any) => row.project_id);
       const projects = await Promise.all(
         projectIds.map((projectId: number) =>
-          this.fetchProjectByProjectId(projectId)
+          this.fetchProjectByProjectId(projectId, "volunteer")
         )
       );
       return projects;
@@ -154,7 +163,7 @@ export class Projects {
     const query = `SELECT * FROM projects WHERE project_name ILIKE $1`;
     const searchTerm = `%${term}%`;
     const result = await db.query(query, [searchTerm]);
-    console.log(result.rows)
+    console.log(result.rows);
     const projectResults = [];
     if (result) {
       result.rows.forEach((row: any) => {
