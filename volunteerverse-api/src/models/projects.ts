@@ -154,11 +154,20 @@ export class Projects {
     }
   }
 
-  /**
-   *
-   * @param term
-   */
 
+  static async getAllProjectTags(){
+    const query = `SELECT DISTINCT tag_name FROM project_tags`;
+    const result = await db.query(query, []);
+    const tags = [];
+    result.rows.forEach((row:any)=>{tags.push(row.tag_name)})
+    return tags;
+  }
+
+  /**
+   * searches through the projects table - filtering by a search term
+   * @param term 
+   * @returns array of projects results
+   */
   static async searchProjects(term: string) {
     const query = `SELECT * FROM projects WHERE project_name ILIKE $1`;
     const searchTerm = `%${term}%`;

@@ -23,7 +23,7 @@ app.use("/auth", authRoutes)
 
 app.use("/volunteer", requireAuthenticatedUser, volunteerRoutes)
 app.use("/organization", requireAuthenticatedUser, organizationRoutes)
-app.use("/project", requireAuthenticatedUser, projectRoutes)
+app.use("/project", projectRoutes)
 
 
 

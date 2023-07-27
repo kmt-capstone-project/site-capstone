@@ -2,6 +2,7 @@
 
 import express from "express";
 import { Projects } from "../models/projects";
+import { requireAuthenticatedUser } from "../middleware/security";
 
 export const projectRoutes = express.Router()
 
@@ -17,22 +18,22 @@ projectRoutes.post("/register", async function (req, res, next){
 
 
 /**route that returns project information given the project id */
-projectRoutes.get("/:projectId", async function (req, res, next){
-    const projectId = parseInt(req.params.projectId)
-    const {user_type, email} = res.locals.user
-    console.log("USERTYPE", user_type)
-    try {
-        const project = await Projects.fetchProjectByProjectId(projectId, user_type, email)
-        res.status(201).json(project)
-      } catch(error) {
-        next(error)
-      }
-})
+// projectRoutes.get("/:projectId", async function (req, res, next){
+//     const projectId = parseInt(req.params.projectId)
+//     const {user_type, email} = res.locals.user
+//     console.log("USERTYPE", user_type)
+//     try {
+//         const project = await Projects.fetchProjectByProjectId(projectId, user_type, email)
+//         res.status(201).json(project)
+//       } catch(error) {
+//         next(error)
+//       }
+// })
 
 
 
 /**route that gets all projects with given tag */
-projectRoutes.get("/tag/:tag_name", async function(req, res, next){
+projectRoutes.get("/tag/:tag_name", requireAuthenticatedUser, async function(req, res, next){
     const tag = req.params.tag_name
     const {user_type, email} = res.locals.user
     const projects = await Projects.getProjectsWithTag(tag)
@@ -50,7 +51,18 @@ projectRoutes.get("/search/:searchTerm", async function(req, res, next){
   try{
     const projects = await Projects.searchProjects(search)
     res.status(201).json(projects)
-  }catch (error){
+  } catch (error){
+    next(error)
+  }
+})
+
+
+/** route that gets all the project tags in database */
+projectRoutes.get("/tags", async function (req,res,next){
+  try{
+    const tags = await Projects.getAllProjectTags()
+    res.status(201).json({tags: tags})
+  } catch (error) {
     next(error)
   }
 })
