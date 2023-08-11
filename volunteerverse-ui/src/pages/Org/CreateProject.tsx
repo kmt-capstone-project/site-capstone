@@ -68,10 +68,10 @@ function CreateProject() {
     validate: (values) => ({
       title: values.title.trim().length > 0  && values.title.trim().length <= 50 ? null : "Title cannot be empty of greater than 50 characters",
       desc: (values.desc.trim().length <= 400 && values.desc.trim().length > 50) ? null : "Descriptoin must be between 50-400 characters long",
+      tags: values.tags.length > 1 ? null : "Please select at least two tag",
       // imageFile: no image validation required
       // no requestedPeople validation required,
       // requestedPeople: values.requestedPeople > 0 ? null : "Requested people must be greater than 0",
-      // tags: no validation needed for tags
 
     })
   });
