@@ -83,51 +83,6 @@ function SlimProjectCard({ project, handleDelete }: { project: VolunteerProjectP
   )
 }
 
-// function SlimProjectCard2({ project, handleDelete }: { project: VolunteerProjectProp, handleDelete: ({ projectId }: { projectId: number }) => void }) {
-//   // use for org projects too
-//   const [projectStatus, setProjectStatus] = useState(project.active)
-//   const toggleProjectActiveStatus = () => {
-//     /**
-//      * @description: toggles status state of a project between on and off
-//      */
-//     apiClient.toggleProjectStatus({ projectId: project.id }).then(({ success, data, statusCode, error }) => {
-//       if (success) {
-//         setProjectStatus(data.active)
-//         project.active = data.active;
-//         // change project active state here
-//       } else {
-//         console.log("error while toggling project active status : ", statusCode, error)
-//         notify.error(); // shows error notification
-//       }
-//     }).catch((error) => {
-//       console.log("a really unexpected error occured: ", error)
-//     })
-//     console.log("toggling projects status state")
-//   }
-
-//   return (
-//     <Paper sx={(theme) => ({
-//       "&:hover": { "transform": "scale(1)", boxShadow: `${theme.shadows.xl}` },
-//       transform: "scale(0.99)",
-//       transition: "all 300ms ease-in-out"
-//     })} p={"md"} shadow='md' radius={"xl"} h={200}>
-//       <Group noWrap={true}>
-//         <Image width={200} fit='cover' withPlaceholder src={project.imageUrl} />
-//         <Flex direction={"column"} h={"100%"} justify={"space-between"} >
-//           <ProjectOptionsMenu isActive={projectStatus} projectId={project.id} handleArchiveToggle={toggleProjectActiveStatus} handleDelete={handleDelete}/>
-//           <Group position="left">
-//             <Title> <Text sx={{ transition: "all 200ms ease-in-out" }} to={`/projects/${project.id}`} component={Link}>{project.title}</Text></Title>
-//             <Text color='dimmed'>Posted: { project.createdAt ? fetchPrettyTime(project.createdAt) : "N/A"}</Text>
-//           </Group>
-//           <Group>
-//             <Badge color={!project.active ? `orange.6` : `green.6`}>{project.active ? "active" : "archived"}</Badge>
-//           </Group>
-//         </Flex>
-//       </Group>
-//     </Paper>
-//   )
-// }
-
 const useStyles = createStyles((theme) => ({
   root :{
     padding: `calc(${theme.spacing.xl})`
