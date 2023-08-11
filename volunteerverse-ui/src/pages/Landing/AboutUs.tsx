@@ -96,13 +96,13 @@ function FoundersCard({ image, avatar, name, school,linkdlnLink, githubLink, maj
     {
     
       image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
-      avatar: "https://vc.bridgew.edu/hoba/1008/preview.jpg",
+      avatar: "https://ca.slack-edge.com/E7T5PNK3P-U051M3J77DZ-84128af4a67d-192",
       name: "Kelechi Emeruwa",
       job: "Fullstack engineer",
       school: "University of Texas, Austin 25'",
       linkdlnLink: "https://www.linkedin.com/in/kelechi-emeruwa",
       githubLink: "https://github.com/Kelach",
-      emailLink: "kelechi@uttexas",
+      emailLink: "kelechi@utexas",
       major: "Computational Engineering",
       stats: [
         {

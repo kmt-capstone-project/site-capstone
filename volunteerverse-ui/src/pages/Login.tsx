@@ -114,7 +114,7 @@ export default function Login() {
           m={"md"}
           radius={"lg"}
           size="lg"
-          label="Passowrd"
+          label="Password"
           placeholder="Password" />
         <Button loading={showButtonLoader} mt={"xl"} onClick={handleUserLogin}>Login</Button>
         <Group position="center">

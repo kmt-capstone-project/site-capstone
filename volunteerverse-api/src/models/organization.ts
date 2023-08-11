@@ -164,7 +164,7 @@ export class Organization {
         organization_name AS "orgName",
         organization_description AS "orgDesc",
         organization_email AS "email",
-        logo_url AS "imageUrl",
+        logo_url AS "logoUrl",
         founders,
         public_email AS "publicEmail",
         public_number AS "publicNumber"

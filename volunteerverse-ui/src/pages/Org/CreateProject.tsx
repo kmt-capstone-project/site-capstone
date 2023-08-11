@@ -15,7 +15,7 @@ import {
   Group,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { useMediaQuery } from '@mantine/hooks';
+import { useMediaQuery, useDisclosure } from '@mantine/hooks';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GoBackButton from '../../components/GoBackButton';
@@ -68,16 +68,17 @@ function CreateProject() {
     validate: (values) => ({
       title: values.title.trim().length > 0  && values.title.trim().length <= 50 ? null : "Title cannot be empty of greater than 50 characters",
       desc: (values.desc.trim().length <= 400 && values.desc.trim().length > 50) ? null : "Descriptoin must be between 50-400 characters long",
+      tags: values.tags.length > 1 ? null : "Please select at least two tag",
       // imageFile: no image validation required
       // no requestedPeople validation required,
       // requestedPeople: values.requestedPeople > 0 ? null : "Requested people must be greater than 0",
-      // tags: no validation needed for tags
 
     })
   });
   const { classes } = useStyles();
   const theme = useMantineTheme();
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+  const [loading, {open : showLoading, close :hideLoading} ] = useDisclosure();
   const skillsTags = useSkills();
   const navigate = useNavigate();
   const setUrl = (url: string) => {
@@ -87,6 +88,7 @@ function CreateProject() {
     // makes reques to create a new project
     // if the form is valid
     // show loader here
+    showLoading();
     if (!form.validate().hasErrors) {
       console.log("creating new project with the following form values: ", form.values)
       const payload = {
@@ -95,30 +97,30 @@ function CreateProject() {
         name: form.values.title,
         tags: form.values.tags,
         orgPublicEmail: user?.userType === "organization" ? user.publicEmail : "",
-        orgPublicNumber: user?.userType === "organization" ? user.publicNumber : undefined,
+        orgPublicNumber: user?.userType === "organization" ? user.publicNumber : "",
         imageUrl: form.values.imageUrl,
         requestedPeople: parseInt(form.values.requestedPeople),
-
-        // @todo: change imageUrl using image hosting api
       }
       apiClient.createProject(payload).then(({ data, success, error, statusCode }) => {
         if (success) {
           console.log("created new project")
           console.log("data : ", data)
+          hideLoading();
           navigate("/");
         } else {
           console.log("failed to create new project. Error:", {error :  error, code : statusCode})
           notify.error();
         }
+        hideLoading();
       }).catch((error) => {
         console.log("a very unexpected error has occured", error)
       })
     } else {
+      hideLoading();
       console.log("form has errros: ", form.errors)
     }
-    // close loader here
   }
-
+  console.log(form.isValid())
   return !isValidOrg ? <NotAuthorized /> : (
     <>
       <GoBackButton mb={"md"}/>
@@ -202,7 +204,7 @@ function CreateProject() {
           </Flex>
         </Container>
         <Group position='center' mt={"xl"}>
-          <Button onClick={createNewProject} radius={"lg"} size='lg' >Create Project</Button>
+          <Button loading={loading} disabled={form.isValid() === false} onClick={createNewProject} radius={"lg"} size='lg' >Create Project</Button>
           <Button size='lg' onClick={() => demoCreateProjectFill(form)} variant='light'>Demo</Button>
         </Group>
       </Paper>
