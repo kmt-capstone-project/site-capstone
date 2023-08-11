@@ -3,6 +3,7 @@ import { IconMail } from '@tabler/icons-react';
 import { VolunteerUserProp } from '../../../props/users';
 
 export default function VolunteerProfileCard({volunteerProfile, closeModal} : {volunteerProfile: VolunteerUserProp, closeModal: () => void}) {
+
 console.log("volunteerProfile: ", volunteerProfile)
     const { firstName, lastName, imageUrl, bio, approved, email, skills } = volunteerProfile;
     return (
