@@ -84,7 +84,7 @@ export default function SignUp( {  userType } : {userType : "organization" | "vo
             firstName: values.firstName.trim().length < 1 ? 'First must be longer than 1 character' : null,
             lastName: values.lastName.trim().length < 1 ? 'Last must be longer than 1 character' : null,
             password: values.password.trim().length < 2 ? 'Please use a stronger password' : null,
-            confirmPassword: values.confirmPassword !== values.password ? "Password's do not match" : null,
+            confirmPassword: values.confirmPassword !== values.password ? "passwords do not match" : null,
             email: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(values.email) ? null : 'Please provide a valid email address',
           }
         } else if (activeStep === 1) {
@@ -134,7 +134,7 @@ export default function SignUp( {  userType } : {userType : "organization" | "vo
         return {
           orgName: values.orgName.trim().length < 2 ? 'Organization must be longer than 2 characters' : null,
           password: values.password.length < 2 ? 'Please use a stronger password' : null,
-          confirmPassword: values.confirmPassword !== values.password ? "Password's do not match" : null,
+          confirmPassword: values.confirmPassword !== values.password ? "Passwords do not match" : null,
           email: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(values.email) ? null : 'Please provide a valid email address',
 
         }
@@ -144,7 +144,7 @@ export default function SignUp( {  userType } : {userType : "organization" | "vo
           orgDescription: values.orgDescription.trim().length <= 500 && values.orgDescription.trim().length >= 100 ? null : "Description must be between 100-500 characters.",
           orgName: values.orgName.length < 1 ? "Please include your organization name" : null,
           termsOfService: values.termsOfService === false ? "You must agree to VolunteerVerse's terms of servcie" : null,
-          imageFile: values.imageFile ?  null : "A logo must be provided.",
+          logoUrl: values.logoUrl ?  null : "A logo must be provided.",
           publicNumber:  /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(values.publicNumber) || values.publicNumber === "" ? null : "Please enter a valid phone number. E.g. 123-456-7890",
           publicEmail: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(values.publicEmail) ? null : 'Please provide a valid email address',
           // orgWebsite:  ^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$.test(values.orgWebsite) || values.orgWebsite === "" ? null : "Please provide a valid website link",
