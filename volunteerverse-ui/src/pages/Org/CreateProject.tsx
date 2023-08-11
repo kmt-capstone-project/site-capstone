@@ -204,7 +204,7 @@ function CreateProject() {
           </Flex>
         </Container>
         <Group position='center' mt={"xl"}>
-          <Button loading={loading} disabled={form.isValid() === true} onClick={createNewProject} radius={"lg"} size='lg' >Create Project</Button>
+          <Button loading={loading} disabled={form.isValid() === false} onClick={createNewProject} radius={"lg"} size='lg' >Create Project</Button>
           <Button size='lg' onClick={() => demoCreateProjectFill(form)} variant='light'>Demo</Button>
         </Group>
       </Paper>
