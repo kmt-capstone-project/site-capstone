@@ -137,7 +137,7 @@ export default function ProjectCard(props: ProjectCardProps) {
                         <Container>
                             <Text my={"xs"} align="center" component={Link} to={props.externalLink || `/projects/${props.id}`} className={classes.title}>{props.title}</Text>
                             <Text mb={"xs"}>By:  { props.orgUrl ? <Text to={props.orgUrl} component={Link}>{props.orgName}</Text> :  props.orgName}</Text>
-                            <Badge> <Text size={"sm"}>  { props.requestedVolunteers ?  `${props.approvedVolunteers}/${props.requestedVolunteers} approved` : `${props.approvedVolunteers} approved` }</Text></Badge>
+                            { !props.external && <Badge> <Text size={"sm"}>  { props.requestedVolunteers ?  `${props.approvedVolunteers}/${props.requestedVolunteers} approved` : `${props.approvedVolunteers} approved` }</Text></Badge>}
                         </Container>
                         <Flex className={classes.detailsBody} direction={"column"}>
                             <Title p={"xs"} className={classes.descTitle} align="start" weight={600} order={3}>Project Description:</Title>
