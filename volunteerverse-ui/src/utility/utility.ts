@@ -73,14 +73,13 @@ export const demoSignUpFill = (index: number, userType: "organization" | "volunt
                 orgDescription: "HelpingHand is a collaborative volunteer organization harnessing technology for meaningful impact. Our skilled volunteers create solutions, from educational platforms for underserved youth to aiding local businesses. Join us now to shape a better future through innovation and community!",
                 orgWebsite: "https://volunteerverse.org/",
                 termsOfService: true,
-                publicEmail:  "demoorg@contact.com",
+                publicEmail:  "helpershand@contact.com",
                 publicNumber: "123-456-7890",
             })
             
         }else if (userType === "volunteer"){
             form.setValues({
                 bio: `Hey there! I'm Jane, a passionate full-stack developer. My journey in web development has equipped me with the skills to bring ideas to life. Eager to make a difference, I'm excited to collaborate with organizations in need of innovative digital solutions. Let's create impactful change together.`,
-                imageUrl: "https://avatar.iran.liara.run/public/49",
                 termsOfService: true,
 
             })
@@ -91,7 +90,7 @@ export const demoSignUpFill = (index: number, userType: "organization" | "volunt
 export const demoLoginFill = (userType: "organization" | "volunteer", form: UseFormReturnType<LoginFormProps> ) => {
     if (userType === "organization") {
         form.setValues({
-            email: "helpinghand@demo.com",
+            email: "helpershand@demo.com",
             password: "123",
         })
     }else if (userType === "volunteer"){
@@ -104,8 +103,7 @@ export const demoLoginFill = (userType: "organization" | "volunteer", form: UseF
 export const demoCreateProjectFill = (form: UseFormReturnType<ProjectFormValues>) => {
     console.log("setting: ", form)
     form.setValues  ({
-        title: "UX Researcher needed for HelpingHand Website",
-        desc: "HelpingHand is a collaborative volunteer organization harnessing technology for meaningful impact. Our skilled volunteers create solutions, from educational platforms for underserved youth to aiding local businesses. Join us now to shape a better future through innovation and community!",
-        tags: ['css', 'backend'],
+        title: "UX Researcher needed for HelpersHand Website",
+        desc: "HelpersHand is a collaborative volunteer organization harnessing technology for meaningful impact. Our skilled volunteers create solutions, from educational platforms for underserved youth to aiding local businesses. Join us now to shape a better future through innovation and community!",
     })
 }
