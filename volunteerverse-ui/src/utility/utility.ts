@@ -50,7 +50,7 @@ export const demoSignUpFill = (index: number, userType: "organization" | "volunt
         if (userType === "organization") {
             form.setValues({
                 orgName: "The Helping Hand Demo",
-                email: "helpinghand@demo.com",
+                email: "helpershand@demo.com",
                 confirmPassword: "123",
                 password: "123",
             })
