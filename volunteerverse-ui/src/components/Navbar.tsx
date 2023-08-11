@@ -167,8 +167,8 @@ export default function Navbar() {
           {
             !isAuth ?
               mapLinksToElements(unAuthLinks, true) :
-              isValidOrg ? mapLinksToElements(volunteerLinks, true)
-                : mapLinksToElements(orgLinks, true)
+              isValidOrg ? mapLinksToElements(orgLinks, true)
+              : mapLinksToElements(volunteerLinks, true)
           }
           <Group position="center" grow mt={"md"} py="xl" px="md">
           {
