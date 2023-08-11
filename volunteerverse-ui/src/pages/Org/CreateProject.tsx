@@ -120,7 +120,7 @@ function CreateProject() {
       console.log("form has errros: ", form.errors)
     }
   }
-
+  console.log(form.isValid())
   return !isValidOrg ? <NotAuthorized /> : (
     <>
       <GoBackButton mb={"md"}/>
