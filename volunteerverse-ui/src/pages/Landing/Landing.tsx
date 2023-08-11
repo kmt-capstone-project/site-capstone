@@ -124,7 +124,7 @@ const useStyles = createStyles((theme) => {
       fontWeight: 900,
       position: 'relative',
       textDecoration: `${theme.colors.violet[7]} 4px underline`,
-      color: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).background,
+      color: theme.colors.violet[7],
       borderRadius: theme.radius.sm,
       padding: `${4} ${12}`,
     },
